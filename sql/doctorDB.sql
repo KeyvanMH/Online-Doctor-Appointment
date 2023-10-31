@@ -1,0 +1,13 @@
+CREATE DATABASE IF NOT EXISTS doctorDB;
+USE doctorDB;
+
+CREATE TABLE IF NOT EXISTS doctor (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  contact_number VARCHAR(20) NOT NULL,
+  city VARCHAR(255) NOT NULL,
+  clinic_address VARCHAR(255) NOT NULL,
+  major VARCHAR(255) NOT NULL,
+  expertise VARCHAR(255) NOT NULL
+);
