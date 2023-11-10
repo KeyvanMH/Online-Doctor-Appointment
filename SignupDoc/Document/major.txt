@@ -1,0 +1,30 @@
+Anatomy
+Anesthesiology
+Cardiology
+Dermatology
+Emergency Medicine
+Endocrinology
+Family Medicine
+Gastroenterology
+Geriatrics
+Hematology
+Immunology
+Infectious Diseases
+Internal Medicine
+Medical Genetics
+Microbiology
+Nephrology
+Neurology
+Obstetrics and Gynecology
+Oncology
+Ophthalmology
+Orthopedics
+Otolaryngology(ENT)
+Pathology
+Pediatrics
+Physical Medicine and Rehabilitation
+Psychiatry
+Pulmonology
+Radiology
+Rheumatology
+Surgery
