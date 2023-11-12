@@ -1,0 +1,33 @@
+Database:
+    -we must have 3 database
+    -appointment databse (ID , doctor id FKEY , patient_num FKEY , hour , date )
+    -doctor database 
+    -doctor#id datbase (patient_num , date , hour , phone_number , email , illness , every appointment time )
+    
+SignUp:
+    -creat jwt for him
+    -redirect to main page 
+
+Login:
+    -get jwt cookie and confirm it
+    -get username or email or phonenumber to login
+    -get password to login
+
+Doctor panel (dashboard):
+    -reserve appointment
+    -see appointment's
+
+customer service:
+    -search every possible thing 
+    -choose Doctor to reserve appointment
+    -fill info to get reservation
+    -pay the price
+    -get patient_number
+
+Detail:
+    -able to change doctor info 
+    -cancell reservation by doctor's or patient's
+    -make a error handling class
+    -have a proper .htaccess
+    -have php ini file configed
+    

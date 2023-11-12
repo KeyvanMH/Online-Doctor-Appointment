@@ -174,4 +174,40 @@ class validator{
         return false;
     }
 
+
+    public static function password($input){
+        //bigger than 8 , smaller than 31 , have both character and number's 
+        $number = "0123456789";
+        $numberArray =  str_split($number);
+        $character = "abcdefghijklmnopqrstuvwxyz";
+        $charArray = str_split($character);
+        $inputArray = str_split($input);
+        if (strlen($input)<8 || strlen($input)>31 ) {
+            return false;
+        }
+
+        //check if it has integer
+        $includeNum = false;
+        foreach ($inputArray as  $value) {
+            if (in_array($value,$numberArray)) {
+                $includeNum = true;
+            }
+        }
+        if ($includeNum == false) {
+            return false;
+        }
+
+        //check if it has char
+        $includeChar = false;
+        foreach ($inputArray as  $value) {
+            if (in_array($value,$charArray)) {
+                $includeChar = true;
+            }
+        }
+        if ($includeChar == false) {
+            return false;
+        }
+        return true;
+    }
+
 }

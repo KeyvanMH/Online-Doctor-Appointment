@@ -5,9 +5,13 @@ CREATE TABLE IF NOT EXISTS doctor (
   id INT AUTO_INCREMENT PRIMARY KEY,
   first_name VARCHAR(255) NOT NULL,
   last_name VARCHAR(255) NOT NULL,
+  file_number VARCHAR(255) NOT NULL,
   contact_number VARCHAR(20) NOT NULL,
   city VARCHAR(255) NOT NULL,
   clinic_address VARCHAR(255) NOT NULL,
   major VARCHAR(255) NOT NULL,
-  expertise VARCHAR(255) NOT NULL
-);
+  expertise VARCHAR(255) NOT NULL,
+  email VARCHAR(32) NOT NULL,
+  gender VARCHAR(6) NOT NULL,
+  password VARCHAR(255)
+)AUTO_INCREMENT=20000;

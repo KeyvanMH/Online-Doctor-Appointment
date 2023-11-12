@@ -2,7 +2,7 @@
 // header("contenttype");
 // header("requestmethodPOST");
 // header("originx*");
-
+session_start();
 spl_autoload_register(function($className){
     require_once "Classes/$className.php";
 });
@@ -28,7 +28,7 @@ $doctorInfo = [
 // Validate data and go to error  class in case of validate issue
 $validDoctor = new validator($doctorInfo);
 $array = get_class_methods($validDoctor);
-unset($array[0]); // delete __construct function from $array array
+unset($array[0],$array[9]); // delete __construct function from $array array
 $methods = array_values($array);
 $output = true;
 foreach ($methods as $value) {
@@ -46,11 +46,13 @@ foreach ($methods as $value) {
 
 if ($output==true) {
     // insert databse
-    echo 1;
-
+    $sanitizeData = new sanitize();
+    $info = $sanitizeData->DBsanitize($doctorInfo);
+    include "../DataBase/Db.php";
+    $id = Db::insertDoctorInfo($info);
+    $_SESSION['id'] = $id;    
+    header("location:setPass.html");     
 }
-// elseif($output == null){
-//     echo "test failed";
-// }
-
-//send user to fronpage 
+elseif($output == false){
+    // error::error();
+}
