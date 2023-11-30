@@ -104,8 +104,7 @@ class validator{
         $numArray = [0,1,2,3,4,5,6,7,8,9];
         for ($i=0; $i <11 ; $i++) { 
             if(!in_array($phoneNumber[$i],$numArray)){
-                $isChar = true;
-                break;             
+                return false;
             }
         }
         if ($phoneNumber[0] != 0 || $phoneNumber[1] != 9 || count($phoneNumber) !== 11) {

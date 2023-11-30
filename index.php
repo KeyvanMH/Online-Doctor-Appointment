@@ -1,4 +1,3 @@
 <?php
-require_once "DataBase/Db.php";
-$x = Db::connection();
-// var_dump($x);
+include "Database/db.php";
+echo "mail page test";

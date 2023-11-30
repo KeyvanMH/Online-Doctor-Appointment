@@ -6,12 +6,9 @@ Database:
     
 SignUp:
     -creat jwt for him
-    -redirect to main page 
 
 Login:
     -get jwt cookie and confirm it
-    -get username or email or phonenumber to login
-    -get password to login
 
 Doctor panel (dashboard):
     -reserve appointment

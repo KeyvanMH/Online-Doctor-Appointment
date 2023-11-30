@@ -1,6 +1,6 @@
 <?php
 class Db{
-    public static function connection(){
+    private static function connection(){
         try {
             $conn = new PDO("mysql:host=localhost;dbname=doctordb", "root", "");
             // set the PDO error mode to exception
@@ -52,4 +52,43 @@ class Db{
             }
     }
 
+
+    public static function fetchUserEmail($email){
+      $conn = Db::connection();
+     try {
+      $stmt = $conn->prepare("SELECT password FROM doctor WHERE email=:email");
+      $stmt->bindParam(":email",$email);
+      $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $result['password'];
+     } catch (\Throwable $th) {
+      //TODO: error handling;
+     } 
+    }
+
+    public static function fetchUserId($id){
+      $conn = Db::connection();
+     try {
+      $stmt = $conn->prepare("SELECT password FROM doctor WHERE id=:id");
+      $stmt->bindParam(":id",$id);
+      $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      return $result['password'];
+     } catch (\Throwable $th) {
+      //TODO: error handling;
+     } 
+    }
+
+    public static function fetchUserPhone($phoneNumber){
+      $conn = Db::connection();
+      try {
+       $stmt = $conn->prepare("SELECT password FROM doctor WHERE contact_number=:phone");
+       $stmt->bindParam(":phone",$phoneNumber);
+       $stmt->execute();
+       $result = $stmt->fetch(PDO::FETCH_ASSOC);
+       return $result['password'];
+      } catch (\Throwable $th) {
+       //TODO: error handling;
+      } 
+    }
 }

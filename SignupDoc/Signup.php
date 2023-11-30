@@ -1,5 +1,5 @@
 <?php
-// header("contenttype");
+// header("Content-Type: application/json");   
 // header("requestmethodPOST");
 // header("originx*");
 session_start();
@@ -34,8 +34,6 @@ $output = true;
 foreach ($methods as $value) {
     $output = $validDoctor->$value();
     if ($output == false) {
-        // error::class;
-        echo $value;
         break;
     }
 }
@@ -44,15 +42,16 @@ foreach ($methods as $value) {
 
 
 
-if ($output==true) {
+if ($output == true) {
     // insert databse
     $sanitizeData = new sanitize();
     $info = $sanitizeData->DBsanitize($doctorInfo);
     include "../DataBase/Db.php";
     $id = Db::insertDoctorInfo($info);
-    $_SESSION['id'] = $id;    
-    header("location:setPass.html");     
+    // $_SESSION['id'] = $id;
+    // header("location:setPass.html");     
 }
 elseif($output == false){
-    // error::error();
+    include "../ErrorHandling/errorHandling.php";
+    echo errorHandling::unvalidInput();
 }
