@@ -21,7 +21,11 @@ $doctorInfo = [
 6 =>$_POST["major"],    
 7 =>$_POST["expertise"], 
 8 =>$_POST["email"],  
-9 =>$_POST["gender"]
+9 =>$_POST["gender"],
+10 =>$_SERVER['REMOTE_ADDR'],
+11 =>date("y:m:d:h:i:s")
+
+
 ];
 
 

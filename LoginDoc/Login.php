@@ -3,10 +3,19 @@ spl_autoload_register(function($className){
     require_once "Classes/$className.php";
 });
 include_once "../DataBase/Db.php";
-if (isset($_COOKIE['jwt'])) {
-//insert jwt module
+    if (isset($_COOKIE['jwt'])) {
+        //insert jwt module
+        $jwt = $_COOKIE['jwt'];
+        include "../jwt/jwtValidator.php";
+        $validJwt = jwtValidator::validator($jwt);
+        if ($validJwt == true) {
+            // header("location:index.php");
+        }else{
+            //send user to the login page for him to login
+        }
 
-}else {
+}elseif(empty($_COOKIE['jwt'])) {
+
     $input = $_POST['input'];
     $password = $_POST['password'];
     // email , phone number , id 
@@ -82,4 +91,6 @@ if (isset($_COOKIE['jwt'])) {
             break;
     
     }
+}else{
+    echo "unexpected Error";
 }

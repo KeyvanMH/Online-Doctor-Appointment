@@ -1,3 +1,3 @@
 <?php
-include "Database/db.php";
-echo "mail page test";
+var_dump($_COOKIE['jwt']);
+echo $_SESSION['id'];

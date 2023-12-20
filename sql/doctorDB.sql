@@ -13,5 +13,7 @@ CREATE TABLE IF NOT EXISTS doctor (
   expertise VARCHAR(255) NOT NULL,
   email VARCHAR(32) NOT NULL,
   gender VARCHAR(6) NOT NULL,
-  password VARCHAR(255)
+  password VARCHAR(255),
+  ip VARCHAR(10),
+  dateRegister VARCHAR(20)
 )AUTO_INCREMENT=20000;

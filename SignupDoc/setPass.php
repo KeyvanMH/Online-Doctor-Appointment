@@ -11,9 +11,13 @@ if ($validPass == true) {
     //hash password
     $hashedPass = hashPass::hashPassword($password);
     include "../DataBase/Db.php";
+    include "../jwt/jwtGenerator.php";
     Db::updatePassword($hashedPass,$_SESSION['id']);
+    $jwt = JwtGenerator::JwtGenerator($_SESSION['id']);
+    setcookie("jwt",$jwt,time()+60*60*24*2);
     // header("location:DoctorPanel");
 }else{
     //error handling
+    echo "error";
 }
 session_unset();

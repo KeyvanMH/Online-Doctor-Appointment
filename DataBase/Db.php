@@ -15,8 +15,8 @@ class Db{
       $conn = Db::connection();
       try {
       $stmt = $conn->prepare("INSERT INTO doctor
-      (first_name ,last_name ,file_number, contact_number, city, clinic_address, major, expertise, email, gender, password)
-      VALUES(:first,:last,:file_number,:contact_number,:city,:clinic_address,:major,:expertise,:email,:gender,'1')"); 
+      (first_name ,last_name ,file_number, contact_number, city, clinic_address, major, expertise, email, gender, password , ip , dateRegister)
+      VALUES(:first,:last,:file_number,:contact_number,:city,:clinic_address,:major,:expertise,:email,:gender,'1',:ip,:dateRegister)"); 
       $stmt->bindParam(":first",$input[0]);
       $stmt->bindParam(":last",$input[1]);
       $stmt->bindParam(":file_number",$input[2]);
@@ -27,6 +27,8 @@ class Db{
       $stmt->bindParam(":expertise",$input[7]);
       $stmt->bindParam(":email",$input[8]);
       $stmt->bindParam(":gender",$input[9]);
+      $stmt->bindParam(":ip",$input[10]);
+      $stmt->bindParam(":dateRegister",$input[11]);
 
       $stmt->execute();
       $doctorID = $conn->lastInsertId();
@@ -91,4 +93,36 @@ class Db{
        //TODO: error handling;
       } 
     }
-}
+
+    // public static function insertJwt($jwt,$id){
+    //   $conn = Db::connection();
+    //   try {
+    //     $stmt = $conn->prepare("INSERT INTO doctor(jwt)VALUES(:jwt) WHERE id=:id"); 
+    //     $stmt->bindParam(":jwt",$jwt);
+    //     $stmt->bindParam(":id",$id);
+    //     $stmt->execute();
+    //     return true;
+    //   } catch (\Throwable $th) {
+    //    //TODO: error handling;
+       
+    //   }
+
+    // }
+
+
+    public static function fetchUserIdJwt($id){
+      $conn = Db::connection();
+     try {
+      $stmt = $conn->prepare("SELECT id FROM doctor WHERE id=:id");
+      $stmt->bindParam(":id",$id);
+      $stmt->execute();
+      $result = $stmt->fetch(PDO::FETCH_ASSOC);
+      if(empty($result)){
+        return false;
+      }else{
+        return true;
+      }
+     } catch (\Throwable $th) {
+      //TODO: error handling;
+     } 
+    }}
