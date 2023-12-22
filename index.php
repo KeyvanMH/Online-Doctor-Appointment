@@ -1,3 +1,3 @@
 <?php
-var_dump($_COOKIE['jwt']);
-echo $_SESSION['id'];
+include_once "ErrorHandling/errorHandling.php";
+errorHandling::internalError();

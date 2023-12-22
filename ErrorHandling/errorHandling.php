@@ -1,11 +1,15 @@
 <?php
 class errorHandling{
-    public static function unvalidInput(){
+    public static function inValidInput(){
         http_response_code(400);
-        return json_encode("UnValid Input");
+        echo json_encode("InValid Input");
     }
     public static function internalError(){
         http_response_code(500);
-        return json_encode("Internal Error!");
+        echo json_encode("Internal Error!");
+    }
+    public static function inValidRequest(){
+        http_response_code(404);
+        echo json_encode("Bad Request!");
     }
 }

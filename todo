@@ -4,12 +4,6 @@ Database:
     -doctor database 
     -doctor#id datbase (patient_num , date , hour , phone_number , email , illness , every appointment time )
     
-SignUp:
-    -creat jwt for him
-
-Login:
-    -get jwt cookie and confirm it
-
 Doctor panel (dashboard):
     -reserve appointment
     -see appointment's

@@ -8,6 +8,9 @@ class Db{
             return $conn;
           } catch(PDOException $e) {
             echo "Connection failed: " . $e->getMessage(); //TODO:fix it as API way (json encode)
+            // errorHandling::internalError();
+
+            
           }
     }
 
@@ -34,7 +37,7 @@ class Db{
       $doctorID = $conn->lastInsertId();
       return $doctorID;
       } catch (\PDOException $e) {
-        echo "Connection failed: " . $e->getMessage(); //TODO:fix it as API way (json encode)
+        errorHandling::internalError();
       }  
     }
 
@@ -58,11 +61,11 @@ class Db{
     public static function fetchUserEmail($email){
       $conn = Db::connection();
      try {
-      $stmt = $conn->prepare("SELECT password FROM doctor WHERE email=:email");
+      $stmt = $conn->prepare("SELECT id,password FROM doctor WHERE email=:email");
       $stmt->bindParam(":email",$email);
       $stmt->execute();
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
-      return $result['password'];
+      return $result;
      } catch (\Throwable $th) {
       //TODO: error handling;
      } 
@@ -71,11 +74,11 @@ class Db{
     public static function fetchUserId($id){
       $conn = Db::connection();
      try {
-      $stmt = $conn->prepare("SELECT password FROM doctor WHERE id=:id");
+      $stmt = $conn->prepare("SELECT id,password FROM doctor WHERE id=:id");
       $stmt->bindParam(":id",$id);
       $stmt->execute();
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
-      return $result['password'];
+      return $result;
      } catch (\Throwable $th) {
       //TODO: error handling;
      } 
@@ -84,11 +87,11 @@ class Db{
     public static function fetchUserPhone($phoneNumber){
       $conn = Db::connection();
       try {
-       $stmt = $conn->prepare("SELECT password FROM doctor WHERE contact_number=:phone");
+       $stmt = $conn->prepare("SELECT id,password FROM doctor WHERE contact_number=:phone");
        $stmt->bindParam(":phone",$phoneNumber);
        $stmt->execute();
        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-       return $result['password'];
+       return $result;
       } catch (\Throwable $th) {
        //TODO: error handling;
       } 
