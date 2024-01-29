@@ -55,11 +55,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $info = $sanitizeData->DBsanitize($doctorInfo);
         include "../DataBase/Db.php";
         $id = Db::insertDoctorInfo($info);
-        // $_SESSION['id'] = $id;
+        $_SESSION['id'] = $id;
         // header("location:setPass.html");     
     }
     elseif($output == false){
-        include "../ErrorHandling/errorHandling.php";
         echo errorHandling::inValidInput();
     }
 }else {

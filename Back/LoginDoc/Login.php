@@ -8,18 +8,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         require_once "Classes/$className.php";
     });
     include_once "../DataBase/Db.php";
-        if (isset($_COOKIE['jwt'])) {
-            //insert jwt module
-            $jwt = $_COOKIE['jwt'];
-            include "../jwt/jwtValidator.php";
-            include "../jwt/jwtGenerator.php";
-            $validJwt = jwtValidator::validator($jwt);
-            if ($validJwt == true) {
-                // header("location:index.php");
-            }else{
-                errorHandling::internalError();
-                //send user to the login page for him to login
-            }
+    if (isset($_COOKIE['jwt'])) {
+        //insert jwt module
+        $jwt = $_COOKIE['jwt'];
+        include "../jwt/jwtValidator.php";
+        include "../jwt/jwtGenerator.php";
+        $validJwt = jwtValidator::validator($jwt);
+        if ($validJwt == true) {
+            // header("location:index.php");
+        }else{
+            errorHandling::inValidRequest();
+            //send user to the login page for him to login
+        }
 
     }elseif(empty($_COOKIE['jwt'])) {
 
@@ -88,7 +88,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                             echo "make your pass better";
                         }else {
                             echo json_encode("wrong password"); //TODO: api form and error handling
-                            
                         }
 
                     }else{

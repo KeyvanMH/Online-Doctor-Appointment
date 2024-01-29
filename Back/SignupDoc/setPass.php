@@ -18,8 +18,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         include "../DataBase/Db.php";
         include "../jwt/jwtGenerator.php";
         Db::updatePassword($hashedPass,$_SESSION['id']);
+        //generate and set jwt
         $jwt = JwtGenerator::JwtGenerator($_SESSION['id']);
         setcookie("jwt",$jwt,time()+60*60*24*2);
+        //make a  database for dactor appointment with id name 
+        Db::makeDataBase($_SESSION['id']);
         // header("location:DoctorPanel");
     }else{
         errorHandling::inValidInput();

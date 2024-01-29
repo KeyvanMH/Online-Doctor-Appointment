@@ -18,7 +18,6 @@ customer service:
 Detail:
     -able to change doctor info 
     -cancell reservation by doctor's or patient's
-    -make a error handling class
     -have a proper .htaccess
     -have php ini file configed
     

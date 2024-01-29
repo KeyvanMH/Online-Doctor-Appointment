@@ -128,4 +128,28 @@ class Db{
      } catch (\Throwable $th) {
       //TODO: error handling;
      } 
-    }}
+    }
+
+    public static function makeDataBase($doctorID){
+      $conn = Db::connection();
+      try {
+        $stmt = $conn->prepare("CREATE TABLE D$doctorID (
+          appointment_id INT AUTO_INCREMENT PRIMARY KEY,
+          year INT,
+          month VARCHAR(20),
+          day INT,
+          day_of_week VARCHAR(20),
+          hour VARCHAR(10),
+          patient_name VARCHAR(100),
+          doctor_name VARCHAR(100),
+          appointment_type VARCHAR(100),
+          status TINYINT
+          )");
+          $stmt->execute();
+      
+        } catch (\PDOException $e) {
+          errorHandling::internalError();
+        } 
+    }
+
+  }
