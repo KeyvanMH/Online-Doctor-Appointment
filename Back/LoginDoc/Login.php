@@ -8,21 +8,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         require_once "Classes/$className.php";
     });
     include_once "../DataBase/Db.php";
-    if (isset($_COOKIE['jwt'])) {
-        //insert jwt module
-        $jwt = $_COOKIE['jwt'];
         include "../jwt/jwtValidator.php";
         include "../jwt/jwtGenerator.php";
-        $validJwt = jwtValidator::validator($jwt);
-        if ($validJwt == true) {
-            // header("location:index.php");
-        }else{
-            errorHandling::inValidRequest();
-            //send user to the login page for him to login
-        }
-
-    }elseif(empty($_COOKIE['jwt'])) {
-
         $input = $_POST['input'];
         $password = $_POST['password'];
         // email , phone number , id 
@@ -55,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
 
             case 'ID':
-                //fetch user with ID from db
+                // fetch user with ID from db
                 $dbArray = Db::fetchUserId($input);
                 $checkHash = checkHash::isHash($dbArray['password']);
                     if(!$checkHash){
@@ -71,8 +58,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                         $checkPass = password_verify($password,$dbArray['password']);
                             if ($checkPass) {
                                 $jwt = JwtGenerator::JwtGenerator($dbArray['id']);
-                                setcookie("jwt",$jwt,time()+60*60*24*2);
-                                header("location:../index.php");
+                                setcookie("jwt",$jwt,time()+60*60*24*2,'/');
+                                header("location:../doctorDashboard/dashboard.php");
                             }else {
                                 echo "wrong password!"; //TODO: api form and error handling
                             }
@@ -103,9 +90,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 break;
         
         }
-    }else{
-        echo "unexpected Error";
-    }
+    
 }else {
     errorHandling::inValidRequest();
 }

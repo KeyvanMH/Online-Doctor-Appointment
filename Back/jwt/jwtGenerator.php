@@ -4,6 +4,7 @@ include "../vendor/autoload.php";
 use Firebase\JWT\JWT;
 class JwtGenerator{
     public static function JwtGenerator($userId){
+        try {
         $key = 'KATATONIA';
         $payload = [
             'userId' => $userId,
@@ -12,6 +13,9 @@ class JwtGenerator{
         ];
         $jwt = JWT::encode($payload, $key, 'HS256');
         return $jwt;
+        }  catch (\Exception $e) { 
+            errorHandling::inValidCookie();
+        }
     }
     
 }

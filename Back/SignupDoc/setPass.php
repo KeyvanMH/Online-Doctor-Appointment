@@ -23,11 +23,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         setcookie("jwt",$jwt,time()+60*60*24*2);
         //make a  database for dactor appointment with id name 
         Db::makeDataBase($_SESSION['id']);
-        // header("location:DoctorPanel");
+        header("location:../../front/dashboard.html");
     }else{
         errorHandling::inValidInput();
     }
-    session_unset();
 }else {
     errorHandling::inValidRequest();
 }

@@ -56,7 +56,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         include "../DataBase/Db.php";
         $id = Db::insertDoctorInfo($info);
         $_SESSION['id'] = $id;
-        // header("location:setPass.html");     
+        header("location:../../front/setPass.html");     
     }
     elseif($output == false){
         echo errorHandling::inValidInput();
