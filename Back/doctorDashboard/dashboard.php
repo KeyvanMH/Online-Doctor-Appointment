@@ -1,12 +1,30 @@
 <?php
-// this is palce with this things:
-// doc can see his calendare
-// doc has a abilty to reserve appointment 
-// doc has abilty to canel appointment 
-// doc can change his base data
+// jwt
+// session 
+// renew jwt 
+// Intl Calendar
+// chnage info
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+include "../jwt/jwtGenerator.php";
+include "../jwt/jwtValidator.php";
+include "../DataBase/Db.php";
+include "../ErrorHandling/errorHandling.php";
+session_start();
 
-// these are security i should consider
-// in every page check jwt to login the user
-// in each page check the request method 
-// in page check output to be json 
+//check securities(jwt and session's)
+require "accountSecurity/checkJwt.php";
+require "accountSecurity/checkSession.php";
+
+//renew the jwt by the acivation of the session just once (consider renew session)
+spl_autoload_register(function($className){
+    require "Classes/$className.php";
+});
+
+
+//calender
+
+//change calender
+
+
  

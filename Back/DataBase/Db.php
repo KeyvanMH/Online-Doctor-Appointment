@@ -130,7 +130,7 @@ class Db{
      } 
     }
 
-    public static function makeDataBase($doctorID){
+    public static function makeDataBase(string $doctorID){
       $conn = Db::connection();
       try {
         $stmt = $conn->prepare("CREATE TABLE D$doctorID (

@@ -1,10 +1,4 @@
-Database:
-    -we must have 3 database
-    -appointment databse (ID , doctor id FKEY , patient_num FKEY , hour , date )
-    -doctor database 
-    -doctor#id datbase (patient_num , date , hour , phone_number , email , illness , every appointment time )
-    
-Doctor panel (dashboard):
+ Doctor panel (dashboard):
     -reserve appointment
     -see appointment's
 

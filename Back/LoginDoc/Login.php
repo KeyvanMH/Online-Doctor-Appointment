@@ -14,6 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $password = $_POST['password'];
         // email , phone number , id 
         $loginFormat = loginFormat::loginFormat($input);
+        session_start();
         switch ($loginFormat) {
             case 'EMAIL':
                 //fetch user with EMAIL from db
@@ -32,6 +33,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                         $checkPass = password_verify($password,$dbArray['password']);
                             if ($checkPass) {
                                 $jwt = JwtGenerator::JwtGenerator($dbArray['id']);
+                                $_SESSION['id'] = $dbArray['id'];
+                                $_SESSION['reNew'] = true;
                                 setcookie("jwt",$jwt,time()+60*60*24*2);
                                 header("location:../index.php");
                             }else {
@@ -58,8 +61,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                         $checkPass = password_verify($password,$dbArray['password']);
                             if ($checkPass) {
                                 $jwt = JwtGenerator::JwtGenerator($dbArray['id']);
+                                $_SESSION['id'] = $dbArray['id'];
+                                $_SESSION['reNew'] = true;
                                 setcookie("jwt",$jwt,time()+60*60*24*2,'/');
-                                header("location:../doctorDashboard/dashboard.php");
+                                header("location:../front/dashboard.html");
                             }else {
                                 echo "wrong password!"; //TODO: api form and error handling
                             }
@@ -81,6 +86,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                         $checkPass = password_verify($password,$dbArray['password']);
                             if ($checkPass) {
                                 $jwt = JwtGenerator::JwtGenerator($dbArray['id']);
+                                $_SESSION['id'] = $dbArray['id'];
+                                $_SESSION['reNew'] = true;
                                 setcookie("jwt",$jwt,time()+60*60*24*2);
                                 header("location:../index.php");
                             }else {
