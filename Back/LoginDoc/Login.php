@@ -36,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                 $_SESSION['id'] = $dbArray['id'];
                                 $_SESSION['reNew'] = true;
                                 setcookie("jwt",$jwt,time()+60*60*24*2);
-                                header("location:../index.php");
+                                header("location:../front/dashboard.php");
                             }else {
                                 echo "wrong password!"; //TODO: api form and error handling
                             }
@@ -64,7 +64,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                 $_SESSION['id'] = $dbArray['id'];
                                 $_SESSION['reNew'] = true;
                                 setcookie("jwt",$jwt,time()+60*60*24*2,'/');
-                                header("location:../front/dashboard.html");
+                                header("location:../front/dashboard.php");
                             }else {
                                 echo "wrong password!"; //TODO: api form and error handling
                             }
@@ -89,7 +89,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                 $_SESSION['id'] = $dbArray['id'];
                                 $_SESSION['reNew'] = true;
                                 setcookie("jwt",$jwt,time()+60*60*24*2);
-                                header("location:../index.php");
+                                header("location:../front/dashboard.php");
                             }else {
                                 echo "wrong password!"; //TODO: api form and error handling
                             }

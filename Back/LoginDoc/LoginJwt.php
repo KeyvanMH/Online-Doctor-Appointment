@@ -12,7 +12,7 @@ if (isset($_COOKIE['jwt'])) {
     $validJwt = jwtValidator::validator($jwt);
     if ($validJwt != false) {
         $_SESSION['id'] = $validJwt;
-        header("location:../doctorDashboard/dashboard.php");
+        header("location:../front/dashboard.php");
     }else{
         $_SESSION['check']=true;
         header("location:../front/login.php");

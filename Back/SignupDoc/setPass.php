@@ -23,7 +23,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         //make a  database for dactor appointment with id name 
         if (isset($_SESSION['id'])) {
             Db::makeDataBase($_SESSION['id']);
-            header("location:../front/dashboard.html");
+            header("location:../front/dashboard.php");
         }else {
             errorHandling::internalError();            
         }
