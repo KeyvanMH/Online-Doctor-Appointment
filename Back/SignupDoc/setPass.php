@@ -19,7 +19,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         Db::updatePassword($hashedPass,$_SESSION['id']);
         //generate and set jwt
         $jwt = JwtGenerator::JwtGenerator($_SESSION['id']);
-        setcookie("jwt",$jwt,time()+60*60*24*2);
+        setcookie("jwt",$jwt,time()+60*60*24*2,'/');
         //make a  database for dactor appointment with id name 
         if (isset($_SESSION['id'])) {
             Db::makeDataBase($_SESSION['id']);

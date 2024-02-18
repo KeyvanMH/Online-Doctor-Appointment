@@ -22,10 +22,10 @@ if (empty($_SESSION['reNew']) or $_SESSION['reNew'] == false) {
     $_SESSION['reNew'] = true;
 }
 
-//calender
-
-
-//change calender
+//calender : see 
+$table = DB::showDocDb($_SESSION['id']);
+print_r($table);
+echo $_SESSION['id'];
 
 
  

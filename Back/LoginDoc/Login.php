@@ -10,6 +10,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     include_once "../DataBase/Db.php";
         include "../jwt/jwtValidator.php";
         include "../jwt/jwtGenerator.php";
+        //TODO: check if the input and password are valid (not empty and)
         $input = $_POST['input'];
         $password = $_POST['password'];
         // email , phone number , id 
@@ -35,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                 $jwt = JwtGenerator::JwtGenerator($dbArray['id']);
                                 $_SESSION['id'] = $dbArray['id'];
                                 $_SESSION['reNew'] = true;
-                                setcookie("jwt",$jwt,time()+60*60*24*2);
+                                setcookie("jwt",$jwt,time()+60*60*24*2,'/');
                                 header("location:../front/dashboard.php");
                             }else {
                                 echo "wrong password!"; //TODO: api form and error handling
@@ -88,7 +89,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                 $jwt = JwtGenerator::JwtGenerator($dbArray['id']);
                                 $_SESSION['id'] = $dbArray['id'];
                                 $_SESSION['reNew'] = true;
-                                setcookie("jwt",$jwt,time()+60*60*24*2);
+                                setcookie("jwt",$jwt,time()+60*60*24*2,'/');
                                 header("location:../front/dashboard.php");
                             }else {
                                 echo "wrong password!"; //TODO: api form and error handling

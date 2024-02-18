@@ -152,4 +152,40 @@ class Db{
         } 
     }
 
+    public static function showDocDb($doctorID){
+      $conn = Db::connection();
+      try {
+        $dbName = "D".$doctorID;
+        $sql = "SELECT * FROM " . $dbName;
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+      } catch (\PDOException $e) {
+        errorHandling::internalError();
+      } 
+    }
+
+
+    //doctor delete's appointment
+    public static function deleteAppointment($appointmentID,$doctorID){
+      $conn = Db::connection();
+      try {
+        $sql = 'SELECT * FROM d'.$doctorID.' WHERE appointment_id='.$appointmentID;
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (empty($result)) {
+          errorHandling::inValidRequest();
+        }else{
+          $sql = 'DELETE FROM d'.$doctorID.' WHERE appointment_id='.$appointmentID;
+          $stmt = $conn->prepare($sql);
+          $stmt->execute();
+        } 
+      } catch (\PDOException $e) {
+        errorHandling::internalError();
+      } 
+    }
+
+
   }

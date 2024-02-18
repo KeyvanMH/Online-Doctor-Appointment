@@ -14,4 +14,8 @@ Detail:
     -cancell reservation by doctor's or patient's
     -have a proper .htaccess
     -have php ini file configed
+
+problems:
+    -fix unic phone number and unic email
+    -check appointment status everytime we refresh page to delete appointment that its time has passed
     

@@ -6,9 +6,11 @@ if (isset($_COOKIE['jwt'])) {
     if ($validJwt == false) {
         $_SESSION['check']=true;
         header("location:login.php");
+        exit();
     }
 }elseif (empty($_COOKIE['jwt'])) {
     $_SESSION['check']=true;
     header("location:login.php");
+    exit();
 }
 
