@@ -29,12 +29,20 @@ switch ($request_method) {
         //make the status of that appointment to 0 (we dont delete data from DB)
         DB::deleteAppointment($deleteAppointmentID,$_SESSION['id']);
         http_response_code(200);
-        echo json_encode('Appointment Deleted');
+        echo json_encode('Appointment Deleted!');
         break;
         
     case 'PUT':
-        //check the request itslef:: has enough property and validate propertie's
+        //validate request
+        //validate clock with db appointments 
+        //put data in db
+        request::requestPut($requestUri);
 
+        // echo $requestUri;
+
+
+        // $output = json_decode($data);
+        // echo $output;
         //put method -> check if in that time no other appointment exist , check if it is in future 
         break;
     
