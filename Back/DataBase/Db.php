@@ -187,5 +187,47 @@ class Db{
       } 
     }
 
+    //fetch hour of the appointment's
+    public static function fetchAppointment($requestUri,$doctorID){
+
+      $conn = Db::connection();
+      $array = explode("&",$requestUri);
+      foreach ($array as $value) {
+        $temp = explode("=",$value);
+        switch ($temp[0]) {
+          case 'year':
+            $year = $temp[1];
+            break;
+          case 'month':
+            $month = $temp[1];
+            break;
+          case 'day':
+            $day = $temp[1];
+            break;
+          case 'hour':
+            $hour = $temp[1];
+            break;
+          
+          default:
+          errorHandling::inValidRequest();
+            break;
+        }
+      }
+      //TODO: test for bindparam
+      try {
+        $sql = "SELECT hour FROM d".$doctorID." WHERE year=".$year." and month='".$month."' and day=".$day;
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+      } catch (\PDOException $e) {
+        errorHandling::internalError();
+      }
+    }
+    //doctor add appointment
+    public static function putAppointment(){
+
+    }
+
 
   }

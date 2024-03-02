@@ -10,7 +10,7 @@ class request{
 
 
     public static function requestDelete($request){
-        $requestArray = explode("?",$request);
+        $requestArray = explode("&",$request);
         //count the number of request to be just one
         $num = count($requestArray);
         if ($num !== 1) {
@@ -54,6 +54,7 @@ class request{
 
 
     public static function requestPut($request){
+        //this part is to validate syntax of the uri 
         $requestArray = explode("&",$request);
         if (count($requestArray) !== 4) {
             errorHandling::inValidRequest();
@@ -62,7 +63,9 @@ class request{
         if ($match !== 4) {
             errorHandling::inValidRequest();
         }
+        //current year
         $year = '20'.date('y');
+
         foreach ($requestArray as  $value) {
             $tmp = explode("=",$value);
             switch ($tmp[0]) {
@@ -74,11 +77,15 @@ class request{
                     }
                     if ($tmp[1] < $year) {
                         errorHandling::inValidRequest();
-                    }         
+                    }
+                    $year = $tmp[1];
                     break;
                 
                 case 'month':
                     //check input month to be only of these month's 
+                     /**
+                    * @param int $outputMonth is the number of the input month in 
+                     */
                     $month = "January-February-March-April-May-June-July-August-September-October-November-December";
                     $monthArray = explode("-",$month);
                     $num = count($monthArray);
@@ -87,8 +94,9 @@ class request{
                         $monthArray[$i] = strtolower($monthArray[$i]);
                     }
 
-                    foreach ($monthArray as $value) {
+                    foreach ($monthArray as $key => $value) {
                         if ($value == $requestMonth) {
+                            $outputMonth = $key+1;
                             $isValid = true;
                             break;
                         }
@@ -98,6 +106,8 @@ class request{
                     if ($isValid == false) {
                         errorHandling::inValidRequest();
                     }
+                    
+                    
                     break;
                 
                 case 'day':
@@ -126,6 +136,7 @@ class request{
                     if ($tmp[1] > 31) {
                         errorHandling::inValidRequest();
                     }
+                    $day = $tmp[1];
                     break;
                 
                 case 'hour':
@@ -133,16 +144,60 @@ class request{
                     if ($isValid !== 1) {
                         errorHandling::inValidRequest();
                     }
+                    $hour = $tmp[1];
                     break;
                 
                 default:
                 errorHandling::inValidRequest();
                     break;
             }
+        }
+        /**      Now we start to validate these params that we got from the request *not to be in past time
+               * @param $year 
+               * @param $outputMonth 
+               * @param $hour 
+               * @param $day 
+          */
+        //real time Now:
+        $thisYear = '20'.date('y');
+        $thisMonth = date('m');
+        $thisDay = date('d');
+        $thisMinute = date('i');
+        
+       
+        if ($year == $thisYear and $outputMonth<$thisMonth) {
+            errorHandling::inValidRequest();            
+        }
+        if ($year == $thisYear and $outputMonth == $thisMonth and $thisDay>$day) {
+            errorHandling::inValidRequest();
+        }
+        // split hour to number 
+        $thisHour = date('H');
+        $hourArray = explode('-',$hour);
+        $hourNum = explode(':',$hourArray[0]);
+        if ($year == $thisYear and $outputMonth == $thisMonth and $thisDay == $day and $thisHour>$hourNum[0]) {
+            errorHandling::inValidRequest();
+        }
+        if ($year == $thisYear and $outputMonth == $thisMonth and $thisDay == $day and $thisHour == $hourNum[0] and $thisMinute>$hourNum[1]) {
+            errorHandling::inValidRequest();
+        }
 
+        //this part is to validate the the a is greater than b => aa:aa-bb:bb
+        $firstClock = $hourArray[0];
+        $secondClock = $hourArray[1];
+        $firstClockArray = explode(':',$firstClock);
+        $secondClockArray = explode(':',$secondClock);
 
-            
+        $firstClockHour = $firstClockArray[0];
+        $firstClockMin = $firstClockArray[1];
+        $secondClockHour = $secondClockArray[0];
+        $secondClockMin = $secondClockArray[1];
 
+        if ($secondClockHour < $firstClockHour) {
+            errorHandling::inValidRequest();
+        }
+        if ($secondClockHour == $firstClockHour and $secondClockMin < $firstClockMin ) {
+            errorHandling::inValidRequest();
         }
 
     }

@@ -11,13 +11,17 @@ session_start();
 // echo $_SERVER['REQUEST_METHOD'];
 // echo "</br>";
 
-
+include "../jwt/jwtGenerator.php";
+include "../jwt/jwtValidator.php";
 include "../DataBase/Db.php";
 include "../ErrorHandling/errorHandling.php";
-
+require "accountSecurity/checkJwt.php";
+require "accountSecurity/checkSession.php";
+date_default_timezone_set('Asia/Tehran');
 spl_autoload_register(function($className){
     require "Classes/$className.php";
 });
+
 $requestUri = request::requestFinder($_SERVER['REQUEST_URI']);
 $request_method = $_SERVER['REQUEST_METHOD'];
 switch ($request_method) {
@@ -34,19 +38,17 @@ switch ($request_method) {
         
     case 'PUT':
         //validate request
-        //validate clock with db appointments 
-        //put data in db
         request::requestPut($requestUri);
+        //validate clock with db appointments 
+        $hoursArray = Db::fetchAppointment($requestUri,$_SESSION['id']);
+        validateTime::validTime($hoursArray);
+        //put data in db
+        Db::putAppointment($requestUri);
 
-        // echo $requestUri;
 
-
-        // $output = json_decode($data);
-        // echo $output;
-        //put method -> check if in that time no other appointment exist , check if it is in future 
         break;
     
     default:
-        # ERROR
+        errorHandling::inValidRequest();
         break;
 }
