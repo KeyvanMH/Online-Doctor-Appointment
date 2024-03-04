@@ -41,9 +41,10 @@ switch ($request_method) {
         request::requestPut($requestUri);
         //validate clock with db appointments 
         $hoursArray = Db::fetchAppointment($requestUri,$_SESSION['id']);
-        validateTime::validTime($hoursArray);
+        validateTime::validTime($hoursArray,$requestUri);
         //put data in db
         Db::putAppointment($requestUri);
+        
 
 
         break;

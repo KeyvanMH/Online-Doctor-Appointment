@@ -196,7 +196,7 @@ class request{
         if ($secondClockHour < $firstClockHour) {
             errorHandling::inValidRequest();
         }
-        if ($secondClockHour == $firstClockHour and $secondClockMin < $firstClockMin ) {
+        if ($secondClockHour == $firstClockHour and $secondClockMin <= $firstClockMin ) {
             errorHandling::inValidRequest();
         }
 
