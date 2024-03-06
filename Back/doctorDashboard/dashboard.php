@@ -2,7 +2,7 @@
 // renew jwt 
 // Intl Calendar
 // chnage info
-// header('Content-Type: application/json; charset=utf-8');
+header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 include "../jwt/jwtGenerator.php";
 include "../jwt/jwtValidator.php";
@@ -24,7 +24,7 @@ if (empty($_SESSION['reNew']) or $_SESSION['reNew'] == false) {
 
 //calender : see 
 $table = DB::showDocDb($_SESSION['id']);
-print_r($table);
+print_r(json_encode($table));
 echo $_SESSION['id'];
 
 

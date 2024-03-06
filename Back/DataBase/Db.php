@@ -18,8 +18,8 @@ class Db{
       $conn = Db::connection();
       try {
       $stmt = $conn->prepare("INSERT INTO doctor
-      (first_name ,last_name ,file_number, contact_number, city, clinic_address, major, expertise, email, gender, password , ip , dateRegister)
-      VALUES(:first,:last,:file_number,:contact_number,:city,:clinic_address,:major,:expertise,:email,:gender,'1',:ip,:dateRegister)"); 
+      (first_name ,last_name ,file_number, contact_number, city, clinic_address, major, expertise, email, gender, password , ip , dateRegister,profileImage)
+      VALUES(:first,:last,:file_number,:contact_number,:city,:clinic_address,:major,:expertise,:email,:gender,'1',:ip,:dateRegister,'default.jpg')"); 
       $stmt->bindParam(":first",$input[0]);
       $stmt->bindParam(":last",$input[1]);
       $stmt->bindParam(":file_number",$input[2]);
@@ -138,11 +138,8 @@ class Db{
           year INT,
           month VARCHAR(20),
           day INT,
-          day_of_week VARCHAR(20),
-          hour VARCHAR(10),
+          hour VARCHAR(12),
           patient_name VARCHAR(100),
-          doctor_name VARCHAR(100),
-          appointment_type VARCHAR(100),
           status TINYINT
           )");
           $stmt->execute();
@@ -178,6 +175,7 @@ class Db{
         if (empty($result)) {
           errorHandling::inValidRequest();
         }else{
+          // we have to make status to 0 , not to delete the whole appointment 
           $sql = 'DELETE FROM d'.$doctorID.' WHERE appointment_id='.$appointmentID;
           $stmt = $conn->prepare($sql);
           $stmt->execute();
@@ -188,7 +186,7 @@ class Db{
     }
 
     //fetch hour of the appointment's
-    public static function fetchAppointment($requestUri,$doctorID){
+    public static function fetchHourAppointment($requestUri,$doctorID){
 
       $conn = Db::connection();
       $array = explode("&",$requestUri);
@@ -213,8 +211,9 @@ class Db{
             break;
         }
       }
-      //TODO: test for bindparam
+      //fetch hour from databse
       try {
+        //TODO: consider status to be 1 in the SQL query
         $sql = "SELECT hour FROM d".$doctorID." WHERE year=".$year." and month='".$month."' and day=".$day;
         $stmt = $conn->prepare($sql);
         $stmt->execute();
@@ -225,8 +224,37 @@ class Db{
       }
     }
     //doctor add appointment
-    public static function putAppointment(){
-
+    public static function putAppointment($requestUri,$doctorID){
+      $array = explode("&",$requestUri);
+      foreach ($array as $value) {
+        $temp = explode("=",$value);
+        switch ($temp[0]) {
+          case 'year':
+            $year = $temp[1];
+            break;
+          case 'month':
+            $month = $temp[1];
+            break;
+          case 'day':
+            $day = $temp[1];
+            break;
+          case 'hour':
+            $hour = $temp[1];
+            break;
+          
+          default:
+          errorHandling::inValidRequest();
+            break;
+        }
+      }
+      $conn = Db::connection();
+      try {
+        $sql = "INSERT INTO d".$doctorID." ( year,month,day,hour,patient_name,status) VALUES ($year,'$month',$day,'$hour', 'doctor','1')";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+      } catch (\PDOException $e) {
+        errorHandling::internalError();
+      } 
     }
 
 

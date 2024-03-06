@@ -36,7 +36,7 @@ class validateTime{
             if ($value[0] < $firstInputClockArray[0]) {
                 array_push($before,$key);
             }
-            if ($value[0] == $firstInputClockArray[0] and $value[1] < $firstInputClockArray[1]) {
+            if ($value[0] == $firstInputClockArray[0] and $value[1] <= $firstInputClockArray[1]) {
                 array_push($before,$key);
             }
         }
@@ -44,7 +44,7 @@ class validateTime{
             if ($lastDbClockArray[$value][0] > $firstInputClockArray[0]) {
                 errorHandling::inValidInput();
             }
-            if ($lastDbClockArray[$value][0] == $firstInputClockArray[0] and $lastDbClockArray[$value][1] > $firstInputClockArray[1]) {
+            if ($lastDbClockArray[$value][0] == $firstInputClockArray[0] and $lastDbClockArray[$value][1] >= $firstInputClockArray[1]) {
                 errorHandling::inValidInput();
             }
         }
@@ -55,7 +55,7 @@ class validateTime{
             if ($value[0] > $firstInputClockArray[0]) {
                 array_push($after,$key);
             }
-            if ($value[0] == $firstInputClockArray[0] and $value[1] > $firstInputClockArray[1]) {
+            if ($value[0] == $firstInputClockArray[0] and $value[1] >= $firstInputClockArray[1]) {
                 array_push($after,$key);
             }
         }
@@ -63,7 +63,7 @@ class validateTime{
             if ($firstDbClockArray[$value][0] < $lastInputClockArray[0] ) {
                 errorHandling::inValidInput();
             }
-            if ($firstDbClockArray[$value][0] == $lastInputClockArray[0] and $firstDbClockArray[$value][1] < $lastInputClockArray[1]) {
+            if ($firstDbClockArray[$value][0] == $lastInputClockArray[0] and $firstDbClockArray[$value][1] <= $lastInputClockArray[1]) {
                 errorHandling::inValidInput();
             }
 

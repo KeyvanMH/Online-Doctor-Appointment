@@ -144,6 +144,19 @@ class request{
                     if ($isValid !== 1) {
                         errorHandling::inValidRequest();
                     }
+                    $holder = explode("-",$tmp[1]);
+                    foreach ($holder as  $value) {
+                        $digit = explode(":",$value);
+                        foreach ($digit as  $number) {
+                            if ($digit[0] >= 24) {
+                                errorHandling::inValidRequest();
+                            }
+                            if ($digit[1] >= 60) {
+                                errorHandling::inValidRequest();
+                            }
+
+                        }
+                    }
                     $hour = $tmp[1];
                     break;
                 

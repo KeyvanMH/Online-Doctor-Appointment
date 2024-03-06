@@ -27,8 +27,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     9 =>$_POST["gender"],
     10 =>$_SERVER['REMOTE_ADDR'],
     11 =>date("y:m:d:h:i:s")
-
-
     ];
 
 
@@ -56,10 +54,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         include "../DataBase/Db.php";
         $id = Db::insertDoctorInfo($info);
         $_SESSION['id'] = $id;
-        header("location:../../front/setPass.html");     
+        header("location:../front/setPass.html");     
     }
     elseif($output == false){
-        echo errorHandling::inValidInput();
+         errorHandling::inValidInput();
     }
 }else {
     errorHandling::inValidRequest();

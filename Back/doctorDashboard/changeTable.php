@@ -26,7 +26,7 @@ $requestUri = request::requestFinder($_SERVER['REQUEST_URI']);
 $request_method = $_SERVER['REQUEST_METHOD'];
 switch ($request_method) {
     case 'DELETE':
-        //format of uri for DELETE: URI?Appointment=number
+        //format of uri for DELETE: URI?AppointmentID=number
         //get appointment ID and validate it
         $deleteAppointmentID = request::requestDelete($requestUri);
         //check if $deleteAppointmentID exist in DB
@@ -40,13 +40,12 @@ switch ($request_method) {
         //validate request
         request::requestPut($requestUri);
         //validate clock with db appointments 
-        $hoursArray = Db::fetchAppointment($requestUri,$_SESSION['id']);
+        $hoursArray = Db::fetchHourAppointment($requestUri,$_SESSION['id']);
         validateTime::validTime($hoursArray,$requestUri);
         //put data in db
-        Db::putAppointment($requestUri);
-        
-
-
+        Db::putAppointment($requestUri,$_SESSION['id']);
+        http_response_code(200);
+        echo json_encode("appointment added");
         break;
     
     default:

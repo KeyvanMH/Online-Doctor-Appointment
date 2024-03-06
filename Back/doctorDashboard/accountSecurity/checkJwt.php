@@ -13,4 +13,3 @@ if (isset($_COOKIE['jwt'])) {
     header("location:login.php");
     exit();
 }
-
