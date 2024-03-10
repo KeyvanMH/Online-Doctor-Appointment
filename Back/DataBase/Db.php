@@ -248,13 +248,13 @@ class Db{
         }
       }
       $conn = Db::connection();
-      try {
-        $sql = "INSERT INTO d".$doctorID." ( year,month,day,hour,patient_name,status) VALUES ($year,'$month',$day,'$hour', 'doctor','1')";
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-      } catch (\PDOException $e) {
-        errorHandling::internalError();
-      } 
+        try {
+          $sql = "INSERT INTO d".$doctorID." ( year,month,day,hour,patient_name,status) VALUES ($year,'$month',$day,'$hour', 'doctor','1')";
+          $stmt = $conn->prepare($sql);
+          $stmt->execute();
+        } catch (\PDOException $e) {
+          errorHandling::internalError();
+         } 
     }
 
 
@@ -271,6 +271,27 @@ class Db{
       } catch (\PDOException $th) {
         errorHandling::internalError();
       }
+
+    }
+
+    public static function changeProfile($request){
+      $requestArray = explode("=",$request);
+      $column = $requestArray[0];
+      $value = $requestArray[1];
+      try {
+        $conn = DB::connection();
+        $sql = "UPDATE doctor
+        SET ".$column." = :value
+        WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(":value",$value);
+        $stmt->bindParam(":id",$_SESSION['id']);
+        $stmt->execute();
+
+      } catch (\PDOException $e) {
+        errorHandling::internalError();
+      }
+
 
     }
 

@@ -34,9 +34,11 @@ switch ($method) {
         //get uri validate and add DB and change profile in doctor table
         $requestUri = $_SERVER['REQUEST_URI'];
         $request = request::requestFinder($requestUri);
-        validateProfileChangeRequest::validation($request);
         //changeable : password , email ,expertise,clinik address,city,contactnumber,
-        echo "everything is just fine!";
+        validateProfileChangeRequest::validation($request);
+        //commit changes in DB doctor table
+        DB::changeProfile($request);
+        echo json_encode(true);
         break;
     
     default:
