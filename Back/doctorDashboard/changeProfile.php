@@ -28,17 +28,15 @@ switch ($method) {
             }
         }
 
-      
-
-        //check : file uploaded
-        
-        //put address of image in database 
-
         break;
 
     case 'PUT':
-        //get uri validate and add DB and change profile
-        echo 'put';
+        //get uri validate and add DB and change profile in doctor table
+        $requestUri = $_SERVER['REQUEST_URI'];
+        $request = request::requestFinder($requestUri);
+        validateProfileChangeRequest::validation($request);
+        //changeable : password , email ,expertise,clinik address,city,contactnumber,
+        echo "everything is just fine!";
         break;
     
     default:

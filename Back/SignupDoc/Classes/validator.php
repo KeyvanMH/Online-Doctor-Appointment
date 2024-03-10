@@ -72,7 +72,7 @@ class validator{
             }
         }
         if ((array_key_last($fname) > 31) || (array_key_last($lname) > 31) || ($isNumeric == true) || (array_key_last($fname)<2) ||(array_key_last($lname)<2)) {
-            return false; 
+            return false;
         }else{
             return true;
         }
@@ -102,11 +102,12 @@ class validator{
     public function validPhoneNumber(){
         $phoneNumber = str_split($this->number);
         $numArray = [0,1,2,3,4,5,6,7,8,9];
-        for ($i=0; $i <11 ; $i++) { 
-            if(!in_array($phoneNumber[$i],$numArray)){
+        foreach ($phoneNumber as $cell) {
+            if(!in_array($cell,$numArray)){
                 return false;
             }
         }
+        
         if ($phoneNumber[0] != 0 || $phoneNumber[1] != 9 || count($phoneNumber) !== 11) {
             return false;
         }
