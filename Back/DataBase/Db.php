@@ -258,4 +258,21 @@ class Db{
     }
 
 
+    public static function saveImageAddress($address){
+      $conn = DB::connection();
+      try {
+        $sql = "UPDATE doctor
+        SET profileImage = :image
+        WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':id',$_SESSION['id']);
+        $stmt->bindParam(':image',$address);
+        $stmt->execute();
+      } catch (\PDOException $th) {
+        errorHandling::internalError();
+      }
+
+    }
+
+
   }
