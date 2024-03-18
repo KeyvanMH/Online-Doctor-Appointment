@@ -32,8 +32,7 @@ switch ($request_method) {
         //check if $deleteAppointmentID exist in DB
         //make the status of that appointment to 0 (we dont delete data from DB)
         DB::deleteAppointment($deleteAppointmentID,$_SESSION['id']);
-        http_response_code(200);
-        echo json_encode('Appointment Deleted!');
+        echo json_encode(true);
         break;
         
     case 'PUT':
@@ -44,8 +43,7 @@ switch ($request_method) {
         validateTime::validTime($hoursArray,$requestUri);
         //put data in db
         Db::putAppointment($requestUri,$_SESSION['id']);
-        http_response_code(200);
-        echo json_encode("appointment added");
+        echo json_encode(true);
         break;
     
     default:

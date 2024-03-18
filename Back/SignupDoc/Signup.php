@@ -52,6 +52,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $sanitizeData = new sanitize();
         $info = $sanitizeData->DBsanitize($doctorInfo);
         include "../DataBase/Db.php";
+        Db::unicData($info);
         $id = Db::insertDoctorInfo($info);
         $_SESSION['id'] = $id;
         header("location:../front/setPass.html");     

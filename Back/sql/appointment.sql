@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS appointment (
   doctor_id INT NOT NULL,
   doctor_name VARCHAR(255) NOT NULL,
   illness VARCHAR(255) NOT NULL,
-  FOREIGN KEY (doctor_id) REFERENCES doctor(id)
+  status TINYINT,
 );
 
-ALTER TABLE appointment AUTO_INCREMENT = 20000;

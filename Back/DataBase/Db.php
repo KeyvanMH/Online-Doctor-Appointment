@@ -291,9 +291,70 @@ class Db{
       } catch (\PDOException $e) {
         errorHandling::internalError();
       }
-
-
     }
 
 
+    public static function unicData($data){
+      $fileNumber = $data[2];
+      $phoneNumber = $data[3];
+      $email = $data[8];
+      try {
+        $conn = DB::connection();
+        $stmt = $conn->prepare('SELECT contact_number FROM doctor WHERE contact_number=:phoneNum');
+        $stmt->bindParam(":phoneNum",$phoneNumber);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($result)) {
+          errorHandling::inValidPhoneNum();
+        }
+        $stmt = $conn->prepare('SELECT file_number FROM doctor WHERE file_number=:fileNum');
+        $stmt->bindParam(":fileNum",$fileNumber);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($result)) {
+          errorHandling::inValidFileNum();
+        }
+        $stmt = $conn->prepare('SELECT email FROM doctor WHERE email=:email');
+        $stmt->bindParam(":email",$email);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($result)) {
+          errorHandling::inValidEmail();
+        }
+      } catch (\PDOException $e) {
+        errorHandling::internalError();
+      }
+    }
+
+    public static function showStatus(){
+        $conn = db::connection();
+        try {
+          $sql = "SELECT appointment_id,year,month,day,hour FROM d".$_SESSION['id']." WHERE status=1";
+          $stmt = $conn->prepare($sql);
+          $stmt->execute();
+          $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+          return $result;
+        } catch (\PDOException $e) {
+          errorHandling::internalError();
+        }     
+    }
+
+    public static function changeStatus($appointmentID){
+      $conn = db::connection();
+      try {
+        foreach ($appointmentID as $key => $value) {
+          $sql = "UPDATE d".$_SESSION['id']."
+           SET status = 0
+          WHERE appointment_id = ".$value;
+          $stmt = $conn->prepare($sql);
+          $stmt->execute();
+        }
+      } catch (\PDOException $e) {
+        errorHandling::internalError();
+      } 
+      
+
+    }
+
+    
   }

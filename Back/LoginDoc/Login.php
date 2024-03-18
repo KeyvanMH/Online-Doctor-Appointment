@@ -20,6 +20,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             case 'EMAIL':
                 //fetch user with EMAIL from db
                 $dbArray = Db::fetchUserEmail($input);
+                if (empty($dbArray)) {
+                    errorHandling::inValidUser();
+                }
                 $checkHash = checkHash::isHash($dbArray['password']);
                     if(!$checkHash){
                         if ($password == "1") {
@@ -48,7 +51,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             case 'ID':
                 // fetch user with ID from db
                 $dbArray = Db::fetchUserId($input);
-                $checkHash = checkHash::isHash($dbArray['password']);
+                if (empty($dbArray)) {
+                    errorHandling::inValidUser();
+                }
+                    $checkHash = checkHash::isHash($dbArray['password']);
                     if(!$checkHash){
                         if ($password == "1") {
                             // header("location:setPass.php");//actually must go to front end and connect's to the setPass.php
@@ -74,6 +80,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             case 'PHONE':
                 //fetch user with PHONE from db   
                 $dbArray = Db::fetchUserPhone($input);
+                if (empty($dbArray)) {
+                    errorHandling::inValidUser();
+                }
                 $checkHash = checkHash::isHash($dbArray['password']);
                     if(!$checkHash){
                         if ($password == "1") {

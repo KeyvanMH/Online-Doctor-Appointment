@@ -22,4 +22,25 @@ class errorHandling{
             setcookie('jwt', '', -1, '/'); 
         }
     }
+    public static function inValidEmail(){
+        http_response_code(404);
+        echo json_encode("inValidEmail!");
+        exit();
+    }
+    public static function inValidFileNum(){
+        http_response_code(404);
+        echo json_encode("inValidFileNum!");
+        exit();
+    }
+    public static function inValidPhoneNum(){
+        http_response_code(404);
+        echo json_encode("inValidPhoneNum!");
+        exit();
+    }
+    public static function inValidUser(){
+        http_response_code(404);
+        echo json_encode("no user found!");
+        exit();
+    }
+
 }

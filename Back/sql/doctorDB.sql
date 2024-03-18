@@ -15,5 +15,6 @@ CREATE TABLE IF NOT EXISTS doctor (
   gender VARCHAR(6) NOT NULL,
   password VARCHAR(255),
   ip VARCHAR(10),
-  dateRegister VARCHAR(20)
+  dateRegister VARCHAR(20),
+  profileImage VARCHAR(255) NOT NULL,
 )AUTO_INCREMENT=20000;

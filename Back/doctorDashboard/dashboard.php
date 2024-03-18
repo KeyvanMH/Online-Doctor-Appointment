@@ -17,6 +17,12 @@ require "accountSecurity/checkSession.php";
 spl_autoload_register(function($className){
     require "Classes/$className.php";
 });
+date_default_timezone_set('Asia/Tehran');
+$time = Db::showStatus();
+$appointmentId = changeStatus::changeStatus($time);
+Db::changeStatus($appointmentId);
+
+
 if (empty($_SESSION['reNew']) or $_SESSION['reNew'] == false) {
     new reNewJwt($_SESSION['id']);
     $_SESSION['reNew'] = true;
