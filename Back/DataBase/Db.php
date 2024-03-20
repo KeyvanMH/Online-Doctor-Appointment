@@ -140,8 +140,10 @@ class Db{
           day INT,
           hour VARCHAR(12),
           patient_name VARCHAR(100),
+          patient_number VARCHAR(255),
           status TINYINT
           )");
+          
           $stmt->execute();
       
         } catch (\PDOException $e) {
@@ -153,7 +155,7 @@ class Db{
       $conn = Db::connection();
       try {
         $dbName = "D".$doctorID;
-        $sql = "SELECT * FROM " . $dbName;
+        $sql = "SELECT * FROM " . $dbName ." WHERE status=1";
         $stmt = $conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -352,9 +354,34 @@ class Db{
       } catch (\PDOException $e) {
         errorHandling::internalError();
       } 
-      
+    }
+
+    public static function showDocDbFilter($filterCity,$filterMajor,$filterGender){
+      if (isset($filterCity) or isset($filterMajor) or isset($filterGender) ) {
+        $sql = "SELECT * FROM doctor WHERE";
+      }else {
+        $sql = "SELECT * FROM doctor";
+      }
+      if ($filterCity !== null) {
+        $sql = $sql." city=".$filterCity;
+      }
+      if ($filterMajor !== null) {
+        $sql = $sql." major=".$filterMajor;
+      }
+      if ($filterGender !== null) {
+        $sql = $sql." gender=".$filterGender;
+      }
+      try {
+        $conn = Db::connection();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+      }  catch (\PDOException $e) {
+        errorHandling::internalError();
+      }      
 
     }
 
     
-  }
+}
