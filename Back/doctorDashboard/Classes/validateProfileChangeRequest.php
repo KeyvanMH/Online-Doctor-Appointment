@@ -22,6 +22,10 @@ class validateProfileChangeRequest {
         $value = $output[1];
         $column = strtolower(trim($output[0]));
         switch ($column) {
+            //TODO: able to change name and last name 
+            // case 'first_name':
+            //     break;
+
             case 'password':
                 //bigger than 8 , smaller than 31 , have both character and number's 
                 $number = "0123456789";

@@ -2,16 +2,24 @@
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 
-include "../DataBase/Db.php";
-include_once "../ErrorHandling/errorHandling.php";
+include "../../DataBase/Db.php";
+include_once "../../ErrorHandling/errorHandling.php";
 
-if ($_SERVER['REQUEST_METHOD'] !== "post") {
+if ($_SERVER['REQUEST_METHOD'] !== "POST") {
     errorHandling::inValidRequest();
 }
 spl_autoload_register(function($className){
     include_once "Classes/$className.php";
 });
 
+
+/**
+ * @param string $sort
+ * @param string $filter
+ * @param string $input
+ */
+
+ 
 //this must be ajax
 $input = $_POST['input'];
 $filterGender = $_POST['gender']??null;
@@ -21,7 +29,7 @@ $filterCity = $_POST['city']??null;
 //default sort relevant
 $sort = "relevant";
 if (isset($_POST['sort'])) {
-    $sort = strtolower(trim($_POST['sort']));//alphabatic , ascesnding , descendinng 
+    $sort = strtolower(trim($_POST['sort']));//only : alphabaticAscesnding , alphabaticDescendinng 
 }
 
 //validate filter's
@@ -29,18 +37,14 @@ validation::validation($filterCity,$filterMajor,$filterGender);
 //db filter
 $docotrs = DB::showDocDbFilter($filterCity,$filterMajor,$filterGender);
 //input
-$result = search::search($input,$docotrs);    
+$result = search::search($input,$docotrs);   
 //sort
 $sortedResult = sort::sort($result,$sort);
 //return
-return $sortedResult;
+echo json_encode($sortedResult);
 
 
 
 
-/**
- * @param string $sort
- * @param string $filter
- * @param string $input
- */
+
 

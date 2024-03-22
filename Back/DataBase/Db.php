@@ -358,9 +358,9 @@ class Db{
 
     public static function showDocDbFilter($filterCity,$filterMajor,$filterGender){
       if (isset($filterCity) or isset($filterMajor) or isset($filterGender) ) {
-        $sql = "SELECT * FROM doctor WHERE";
+        $sql = "SELECT id, first_name, last_name, contact_number, city, clinic_address, major, expertise, email, gender FROM doctor";
       }else {
-        $sql = "SELECT * FROM doctor";
+        $sql = "SELECT id, first_name, last_name, contact_number, city, clinic_address, major, expertise, email, gender FROM doctor";
       }
       if ($filterCity !== null) {
         $sql = $sql." city=".$filterCity;
@@ -379,8 +379,21 @@ class Db{
         return $result;
       }  catch (\PDOException $e) {
         errorHandling::internalError();
-      }      
+      }
+    }
 
+    public static function showImage($id){
+      try {
+        $conn = Db::connection();
+        $stmt = $conn->prepare("SELECT profileImage FROM doctors WHERE id=:id");
+        $stmt->bindParam(":id",$id);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+
+      }  catch (\PDOException $e) {
+        errorHandling::internalError();
+      }
     }
 
     
