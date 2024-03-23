@@ -385,7 +385,7 @@ class Db{
     public static function showImage($id){
       try {
         $conn = Db::connection();
-        $stmt = $conn->prepare("SELECT profileImage FROM doctors WHERE id=:id");
+        $stmt = $conn->prepare("SELECT profileImage FROM doctor WHERE id=:id");
         $stmt->bindParam(":id",$id);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
