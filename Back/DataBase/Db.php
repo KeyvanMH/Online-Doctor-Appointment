@@ -226,7 +226,8 @@ class Db{
       }
     }
     //doctor add appointment
-    public static function putAppointment($requestUri,$doctorID){
+    public static function putAppointment($requestUri,$doctorID,$phoneNum,$patientName){
+      if ($phoneNum == null and $patientName == null) {
       $array = explode("&",$requestUri);
       foreach ($array as $value) {
         $temp = explode("=",$value);
@@ -257,6 +258,45 @@ class Db{
         } catch (\PDOException $e) {
           errorHandling::internalError();
          } 
+      }elseif ($phoneNum !== null and $patientName !== null) {
+
+        $array = explode("&",$requestUri);
+      foreach ($array as $value) {
+        $temp = explode("=",$value);
+        switch ($temp[0]) {
+          case 'year':
+            $year = $temp[1];
+            break;
+          case 'month':
+            $month = $temp[1];
+            break;
+          case 'day':
+            $day = $temp[1];
+            break;
+          case 'hour':
+            $hour = $temp[1];
+            break;
+          
+          default:
+          errorHandling::inValidRequest();
+            break;
+        }
+      }
+      $conn = Db::connection();
+        try {
+          $sql = "INSERT INTO d".$doctorID." (year, month, day, hour, status, patient_name, patient_number) VALUES (:year, :month, :day, :hour, '1', :name, :num)";
+          $stmt = $conn->prepare($sql);
+          $stmt->bindParam(":year", $year);
+          $stmt->bindParam(":month", $month);
+          $stmt->bindParam(":day", $day);
+          $stmt->bindParam(":hour", $hour);
+          $stmt->bindParam(":name", $patientName);
+          $stmt->bindParam(":num", $phoneNum);
+          $stmt->execute();
+        } catch (\PDOException $e) {
+          errorHandling::internalError();
+         } 
+      }
     }
 
 
@@ -342,8 +382,8 @@ class Db{
     }
 
     public static function changeStatus($appointmentID){
-      $conn = db::connection();
       try {
+        $conn = db::connection();
         foreach ($appointmentID as $key => $value) {
           $sql = "UPDATE d".$_SESSION['id']."
            SET status = 0
@@ -396,5 +436,74 @@ class Db{
       }
     }
 
+    public static function insertAppointmentTable($requestUri,$id,$phoneNum,$patientName){
+      $reservationDate = date("Y,M,D H:i");
+      $array = explode("&",$requestUri);
+      foreach ($array as $value) {
+        $temp = explode("=",$value);
+        switch ($temp[0]) {
+          case 'year':
+            $year = $temp[1];
+            break;
+          case 'month':
+            $month = $temp[1];
+            break;
+          case 'day':
+            $day = $temp[1];
+            break;
+          case 'hour':
+            $hour = $temp[1];
+            break;
+          
+          default:
+          errorHandling::inValidRequest();
+            break;
+        }
+      }
+      $conn = Db::connection();
+        try {
+          $sql = "INSERT INTO appointment ( patient_name ,patient_phone ,year,month,day,hour,reservation_date,doctor_id,status) VALUES (:patient_name,:patient_phone,:year,:month,:day,:hour,:reservation_date,:doctor_id,'1')";
+          $stmt = $conn->prepare($sql);
+          $stmt->bindParam(":patient_name",$patientName);
+          $stmt->bindParam(":patient_phone",$phoneNum);
+          $stmt->bindParam(":year",$year);
+          $stmt->bindParam(":month",$month);
+          $stmt->bindParam(":day",$day);
+          $stmt->bindParam(":hour",$hour);
+          $stmt->bindParam(":reservation_date",$reservationDate);
+          $stmt->bindParam(":doctor_id",$id);
+          $stmt->execute();
+        } catch (\PDOException $e) {
+          errorHandling::internalError();
+         }
+    }
     
+    public static function showAppointmentTableStatus(){
+      try {
+          $conn = db::connection();
+          $sql = "SELECT id,year,month,day,hour FROM appointment WHERE status=1";
+          $stmt = $conn->prepare($sql);
+          $stmt->execute();
+          $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+          return $result;
+        } catch (\PDOException $e) {
+          errorHandling::internalError();
+        }
+    }
+
+    public static function changeAppointmentTableStatus($appointmentId){
+      try {
+        $conn = db::connection();
+        foreach ($appointmentId as $key => $value) {
+            $sql = "UPDATE appointment SET status = 0 WHERE id = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':id', $value, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+
+      } catch (\PDOException $e) {
+        // errorHandling::internalError();
+        echo $e;
+      }
+}
 }

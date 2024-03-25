@@ -42,7 +42,7 @@ switch ($request_method) {
         $hoursArray = Db::fetchHourAppointment($requestUri,$_SESSION['id']);
         validateTime::validTime($hoursArray,$requestUri);
         //put data in db
-        Db::putAppointment($requestUri,$_SESSION['id']);
+        Db::putAppointment($requestUri,$_SESSION['id'],null,null);
         echo json_encode(true);
         break;
     

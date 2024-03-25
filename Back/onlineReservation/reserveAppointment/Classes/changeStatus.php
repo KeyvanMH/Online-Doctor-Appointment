@@ -1,7 +1,7 @@
 <?php
 class changeStatus{
-    public static function changeStatus($input){
-        if (!empty($input)) {
+    public static function changeStatus($time){
+        if ($time !== null) {
         // live time
         $year = "20".date("y");
         $month = date("m");
@@ -10,7 +10,7 @@ class changeStatus{
         $minute = date("i");
         //input time
         $appointmentId = array();
-        foreach ($input as $key => $value){
+        foreach ($time as $key => $value){
             $monthArray = explode("-","January-February-March-April-May-June-July-August-September-October-November-December");
             foreach ($monthArray as $key => $index) {
                 if (strtolower($index) == strtolower($value['month'])) {
@@ -23,37 +23,36 @@ class changeStatus{
             $array = explode(":",$temp[0]);
             $dbHour = $array[0];
             $dbMinute = $array[1];
-
+            
             if ($year > $value['year']) {
                 //status == 0
-                array_push($appointmentId,$value['appointment_id']);
-                continue;
+                array_push($appointmentId,$value['id']);
+                // continue;
             }
             if ($year == $value['year'] and $month > $dbMonth) {
                 //status == 0
-                array_push($appointmentId,$value['appointment_id']);
+                array_push($appointmentId,$value['id']);
                 continue;
             }
             if ($year == $value['year'] and $month == $dbMonth and $day > $value['day']) {
                 //status == 0
-                array_push($appointmentId,$value['appointment_id']);
+                array_push($appointmentId,$value['id']);
                 continue;
             }
             if ($year == $value['year'] and $month == $dbMonth and $day == $value['day'] and $hour > $dbHour ) {
                 //status == 0
-                array_push($appointmentId,$value['appointment_id']);
+                array_push($appointmentId,$value['id']);
                 continue;
             }
             if ($year == $value['year'] and $month == $dbMonth and $day == $value['day'] and $hour == $dbHour  and $minute > $dbMinute) {
                 //status == 0
-                array_push($appointmentId,$value['appointment_id']);
+                array_push($appointmentId,$value['id']);
                 continue;
             }
 
 
         }
         return $appointmentId;
-        }   
     }
-
+    }
 }

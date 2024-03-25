@@ -3,7 +3,7 @@ CREATE TABLE DoctorAppointments (
     year INT,
     month VARCHAR(20),
     day INT,
-    hour VARCHAR(10),
+    hour VARCHAR(12),
     patient_name VARCHAR(100),
     patient_number VARCHAR(255);
     status TINYINT

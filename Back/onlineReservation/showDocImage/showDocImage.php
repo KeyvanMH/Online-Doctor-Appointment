@@ -10,7 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] !== "GET") {
 if (empty($_GET['id'])) {
     errorHandling::inValidRequest();
 }
-header('Content-Type: image/jpeg');
 $doctorId = $_GET['id'];
 $path = Db::showImage($doctorId);
-readfile("../../image/".$path['profileImage']);
+if (!empty($path)) {
+    header('Content-Type: image/jpeg');
+    readfile("../../image/".$path['profileImage']);
+}else{
+    errorHandling::inValidInput();
+}
