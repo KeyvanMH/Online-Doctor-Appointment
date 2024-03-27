@@ -165,6 +165,20 @@ class Db{
       } 
     }
 
+    public static function showDocDbForPatient($doctorID){
+      $conn = Db::connection();
+      try {
+        $dbName = "D".$doctorID;
+        $sql = "SELECT year,month,day,hour FROM " . $dbName ." WHERE status=1";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+      } catch (\PDOException $e) {
+        errorHandling::internalError();
+      } 
+    }
+
 
     //doctor delete's appointment
     public static function deleteAppointment($appointmentID,$doctorID){
@@ -473,6 +487,8 @@ class Db{
           $stmt->bindParam(":reservation_date",$reservationDate);
           $stmt->bindParam(":doctor_id",$id);
           $stmt->execute();
+          $appointmentId = $conn->lastInsertId();
+          return $appointmentId;
         } catch (\PDOException $e) {
           errorHandling::internalError();
          }
@@ -502,8 +518,24 @@ class Db{
         }
 
       } catch (\PDOException $e) {
-        // errorHandling::internalError();
-        echo $e;
+        errorHandling::internalError();
       }
-}
+    }
+
+    public static function cancellReservation($appointmentId){
+      try {
+        $conn = Db::connection();
+        $stmt = $conn->prepare("UPDATE appointment
+        SET status = 0
+        WHERE id = :id;
+        ");
+        $stmt->bindParam(":id",$appointmentId);
+        $stmt->execute();
+      } catch (\PDOException $e) {
+        errorHandling::internalError();
+      }
+
+
+
+    }
 }

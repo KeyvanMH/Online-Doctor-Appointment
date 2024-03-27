@@ -41,5 +41,5 @@ if ($appointmentId !== null) {
 }
 
 //insert in appointment table
-Db::insertAppointmentTable($requestUri,$id,$phoneNum,$patientName);
-echo json_encode(true);
+$appointmentId = Db::insertAppointmentTable($requestUri,$id,$phoneNum,$patientName);
+echo json_encode($appointmentId);

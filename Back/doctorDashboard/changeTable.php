@@ -1,16 +1,6 @@
 <?php
-//check security and session and jwt 
-//request method put and delete
-//server request uri
-//reserve , delete 
 session_start();
-
-
-// echo $_SERVER['REQUEST_URI'];
-// echo "</br>";
-// echo $_SERVER['REQUEST_METHOD'];
-// echo "</br>";
-
+//TODO: header
 include "../jwt/jwtGenerator.php";
 include "../jwt/jwtValidator.php";
 include "../DataBase/Db.php";
@@ -43,6 +33,7 @@ switch ($request_method) {
         validateTime::validTime($hoursArray,$requestUri);
         //put data in db
         Db::putAppointment($requestUri,$_SESSION['id'],null,null);
+        Db::insertAppointmentTable($requestUri,$_SESSION['id'],"Null","doctor".$_SESSION['id']);
         echo json_encode(true);
         break;
     

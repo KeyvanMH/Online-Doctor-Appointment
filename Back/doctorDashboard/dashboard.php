@@ -33,7 +33,7 @@ if (empty($_SESSION['reNew']) or $_SESSION['reNew'] == false) {
 //calender : see 
 $table = DB::showDocDb($_SESSION['id']);
 print_r(json_encode($table));
-echo $_SESSION['id'];
+echo json_encode($_SESSION['id']);
 
 
  
