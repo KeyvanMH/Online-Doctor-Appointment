@@ -20,6 +20,7 @@ if (empty($_POST['id']) or empty($_POST['year']) or empty($_POST['month']) or em
 $id = $_POST['id'];
 $phoneNum = $_POST['phoneNum'];
 $patientName = $_POST['name'];
+validateName::validateName($patientName);
 
 $requestUri = "year=".$_POST['year']."&month=".$_POST['month']."&day=".$_POST['day']."&hour=".$_POST['hour'];
 
