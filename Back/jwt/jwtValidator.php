@@ -12,12 +12,12 @@ class jwtValidator {
             $validJwt = DB::fetchUserIdJwt($decoded->userId);
             $expirationTime = $decoded->exp;
             $timeValid = $expirationTime < time()?false:true;
-            if ($validJwt and $timeValid == true) {
+            if ($validJwt == true and $timeValid == true) {
                 return $decoded->userId;
             }else {
                 return false;
             }
-        }  catch (\Exception $e) { 
+        }  catch (\PDOException $e) { 
             errorHandling::inValidCookie();
         }
     }

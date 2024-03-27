@@ -10,9 +10,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     include_once "../DataBase/Db.php";
         include "../jwt/jwtValidator.php";
         include "../jwt/jwtGenerator.php";
-        //TODO: check if the input and password are valid (not empty and)
-        $input = $_POST['input'];
-        $password = $_POST['password'];
+
+        $input = $_POST['input']??null;
+        $password = $_POST['password']??null;
+        if (empty($input) or empty($password)) {
+            errorHandling::inValidRequest();
+        }
         // email , phone number , id 
         $loginFormat = loginFormat::loginFormat($input);
         session_start();
@@ -26,10 +29,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 $checkHash = checkHash::isHash($dbArray['password']);
                     if(!$checkHash){
                         if ($password == "1") {
-                            // header("location:setPass.php");//actually must go to front end and connect's to the setPass.php
-                            echo "make your pass better";
+                            $jwt = JwtGenerator::JwtGenerator($dbArray['id']);
+                            $_SESSION['id'] = $dbArray['id'];
+                            $_SESSION['reNew'] = true;
+                            setcookie("jwt",$jwt,time()+60*60*24*2,'/');
+                            echo json_encode('weak password');
                         }else {
-                            echo json_encode("wrong password"); //TODO: api form and error handling
+                            errorHandling::wrongPassword();                            
                             
                         }
 
@@ -40,9 +46,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                 $_SESSION['id'] = $dbArray['id'];
                                 $_SESSION['reNew'] = true;
                                 setcookie("jwt",$jwt,time()+60*60*24*2,'/');
-                                header("location:../front/dashboard.php");
+                                echo json_encode(true);
                             }else {
-                                echo "wrong password!"; //TODO: api form and error handling
+                                errorHandling::wrongPassword();                            
                             }
                 }
                 break;
@@ -57,11 +63,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                     $checkHash = checkHash::isHash($dbArray['password']);
                     if(!$checkHash){
                         if ($password == "1") {
-                            // header("location:setPass.php");//actually must go to front end and connect's to the setPass.php
-                            echo "make your pass better";
+                            $jwt = JwtGenerator::JwtGenerator($dbArray['id']);
+                            $_SESSION['id'] = $dbArray['id'];
+                            $_SESSION['reNew'] = true;
+                            setcookie("jwt",$jwt,time()+60*60*24*2,'/');
+                            echo json_encode('weak password');
                         }else {
-                            echo json_encode("wrong password"); //TODO: api form and error handling
-                            
+                            errorHandling::wrongPassword();                            
                         }
 
                     }else{
@@ -71,9 +79,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                 $_SESSION['id'] = $dbArray['id'];
                                 $_SESSION['reNew'] = true;
                                 setcookie("jwt",$jwt,time()+60*60*24*2,'/');
-                                header("location:../front/dashboard.php");
+                                echo json_encode(true);
                             }else {
-                                echo "wrong password!"; //TODO: api form and error handling
+                                errorHandling::wrongPassword();
                             }
                 }
                 break;
@@ -86,10 +94,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                 $checkHash = checkHash::isHash($dbArray['password']);
                     if(!$checkHash){
                         if ($password == "1") {
-                            // header("location:setPass.php");//actually must go to front end and connect's to the setPass.php
-                            echo "make your pass better";
+                            $jwt = JwtGenerator::JwtGenerator($dbArray['id']);
+                            $_SESSION['id'] = $dbArray['id'];
+                            $_SESSION['reNew'] = true;
+                            setcookie("jwt",$jwt,time()+60*60*24*2,'/');
+                            echo json_encode('weak password');
                         }else {
-                            echo json_encode("wrong password"); //TODO: api form and error handling
+                            errorHandling::wrongPassword();                            
                         }
 
                     }else{
@@ -99,9 +110,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                                 $_SESSION['id'] = $dbArray['id'];
                                 $_SESSION['reNew'] = true;
                                 setcookie("jwt",$jwt,time()+60*60*24*2,'/');
-                                header("location:../front/dashboard.php");
+                                echo json_encode(true);
                             }else {
-                                echo "wrong password!"; //TODO: api form and error handling
+                                errorHandling::wrongPassword();                            
                             }
                 }
                 break;

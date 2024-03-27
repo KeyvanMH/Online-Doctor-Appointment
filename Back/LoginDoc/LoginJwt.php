@@ -1,5 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: *');
+header('Content-Type: application/json; charset=utf-8');
 session_start();
 
 if (isset($_COOKIE['jwt'])) {
@@ -12,13 +13,11 @@ if (isset($_COOKIE['jwt'])) {
     $validJwt = jwtValidator::validator($jwt);
     if ($validJwt != false) {
         $_SESSION['id'] = $validJwt;
-        header("location:../front/dashboard.php");
+        echo json_encode(true);
     }else{
-        $_SESSION['check']=true;
-        header("location:../front/login.php");
+        echo json_encode(false);
     }
 }elseif (empty($_COOKIE['jwt'])) {
-    $_SESSION['check']=true;
-    header("location:../front/login.php");
+    echo json_encode(false);
 }
 

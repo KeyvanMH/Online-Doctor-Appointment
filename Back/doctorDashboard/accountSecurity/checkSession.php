@@ -5,7 +5,12 @@
 // //because we do all db info changing dou to the session id not the jwt
 $_SESSION['id'] = $validJwt;
 if ($_SESSION['id'] != $validJwt) {
-    header("location:login.php");
+    echo json_encode(false);
+    http_response_code(401);
     exit();
-    
 }
+if (empty($_SESSION['id'])) {
+    echo json_encode(false);
+    http_response_code(401);
+    exit();
+    }

@@ -10,3 +10,4 @@ class checkHash{
 
     }
 }
+echo "test";

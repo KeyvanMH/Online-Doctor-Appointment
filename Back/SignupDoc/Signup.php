@@ -55,7 +55,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         Db::unicData($info);
         $id = Db::insertDoctorInfo($info);
         $_SESSION['id'] = $id;
-        header("location:../front/setPass.html");     
+        echo json_encode(true);
     }
     elseif($output == false){
          errorHandling::inValidInput();

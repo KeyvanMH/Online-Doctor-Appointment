@@ -1,7 +1,5 @@
 <?php
-// renew jwt 
-// Intl Calendar
-// chnage info
+// this page shows doctor his schedule 
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 include "../jwt/jwtGenerator.php";

@@ -1,6 +1,8 @@
 <?php
+header('Content-Type: application/json; charset=utf-8');
+header('Access-Control-Allow-Origin: *');
+
 session_start();
-//TODO: header
 include "../jwt/jwtGenerator.php";
 include "../jwt/jwtValidator.php";
 include "../DataBase/Db.php";

@@ -1,1 +1,14 @@
-In progress....!
+pages that can receive request:
+
+back/doctorDahsboard/changeProfile.php
+back/doctorDahsboard/changetable.php
+back/doctorDahsboard/dasshboard.php
+back/loginDoc/login.php
+back/loginDoc/loginjwt.php
+back/onlineReservation/reserveAppointment/cancelReservation.php
+back/onlineReservation/reserveAppointment/reserveAppointment.php
+back/onlineReservation/searchEngine/searchEngine.php
+back/onlineReservation/showDocInfo/showDocImage.php
+back/onlineReservation/showDocInfo/showDocSchedule.php
+back/SignupDoc/setpass.php
+back/SignupDoc/Signup.php

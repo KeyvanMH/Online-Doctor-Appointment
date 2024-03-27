@@ -42,5 +42,11 @@ class errorHandling{
         echo json_encode("no user found!");
         exit();
     }
+    public static function wrongPassword(){
+        http_response_code(404);
+        echo json_encode("wrong Password");
+        exit();
+    }
+    
 
 }
