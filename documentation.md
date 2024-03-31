@@ -40,7 +40,7 @@ To delete a doctor's appointment, send a DELETE request to `/OnlineDoctorAppoint
 Doctors can upload a profile picture using a POST request to `/OnlineDoctorAppointment/back/doctorDashboard/changeProfile`. The image should be in JPEG format and below 1MB in size.
 
 ## Update Doctor Information
-Update the doctor's information by sending a PUT request to `/OnlineDoctorAppointment/back/doctorDashboard/changeProfile`. Include the desired changes in the URL parameters.
+Update the doctor's information by sending a PUT request to `/OnlineDoctorAppointment/back/doctorDashboard/changeProfile?first_name=hosseinh`, after the "?" write whatever data needs to be changed. Include the desired changes in the URL parameters.
 
 ## Search Engine
 Utilize the search engine by sending a POST request to `/OnlineDoctorAppointment/back/onlineReservation/searchEngine/searchEngine`. The API returns a JSON array based on the provided input, with the option to specify sorting criteria.
@@ -58,4 +58,4 @@ Patients can cancel their reservations by sending a POST request to `/OnlineDoct
 Retrieve a doctor's schedule by sending a POST request to `/OnlineDoctorAppointment/back/onlineReservation/showDocInfo/showDocSchedule` with the doctor's ID in the request body.
 
 ## Conclusion
-This documentation provides an overview of the available endpoints and their usage. For further details, refer to the API documentation or contact the API provider.
+This documentation provides an overview of the available endpoints and their usage, including the specific request formats and guidelines for front-end developers. For further details, refer to the API documentation or contact the API provider.
