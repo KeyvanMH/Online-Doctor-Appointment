@@ -75,6 +75,6 @@ class search{
             array_push($outputAddress,$dbResult[$value]);
         }
         
-        return [$outputName,$outputCity,$outputMajor,$outputAddress];
+        return ["name"=>$outputName,"city"=>$outputCity,"major"=>$outputMajor,"address"=>$outputAddress];
     }
 }

@@ -7,8 +7,7 @@ class Db{
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $conn;
           } catch(PDOException $e) {
-            echo "Connection failed: " . $e->getMessage(); //TODO:fix it as API way (json encode)
-            // errorHandling::internalError();
+            errorHandling::internalError();
 
             
           }
@@ -53,8 +52,8 @@ class Db{
         $stmt->bindParam(":password",$input);
         $stmt->execute();
       } catch (\PDOException $e) {
-        echo "Connection failed: " . $e->getMessage(); //TODO:fix it as API way (json encode)
-            }
+        errorHandling::internalError();
+      } 
     }
 
 
@@ -66,9 +65,9 @@ class Db{
       $stmt->execute();
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
       return $result;
-     } catch (\Throwable $th) {
-      //TODO: error handling;
-     } 
+     }  catch (\PDOException $e) {
+      errorHandling::internalError();
+    } 
     }
 
     public static function fetchUserId($id){
@@ -79,9 +78,9 @@ class Db{
       $stmt->execute();
       $result = $stmt->fetch(PDO::FETCH_ASSOC);
       return $result;
-     } catch (\Throwable $th) {
-      //TODO: error handling;
-     } 
+     } catch (\PDOException $e) {
+      errorHandling::internalError();
+    } 
     }
 
     public static function fetchUserPhone($phoneNumber){
@@ -92,8 +91,8 @@ class Db{
        $stmt->execute();
        $result = $stmt->fetch(PDO::FETCH_ASSOC);
        return $result;
-      } catch (\Throwable $th) {
-       //TODO: error handling;
+      } catch (\PDOException $e) {
+        errorHandling::internalError();
       } 
     }
 
@@ -105,10 +104,9 @@ class Db{
     //     $stmt->bindParam(":id",$id);
     //     $stmt->execute();
     //     return true;
-    //   } catch (\Throwable $th) {
-    //    //TODO: error handling;
-       
-    //   }
+    //   } catch (\PDOException $e) {
+      // errorHandling::internalError();
+    // } 
 
     // }
 
@@ -125,9 +123,9 @@ class Db{
       }else{
         return true;
       }
-     } catch (\Throwable $th) {
-      //TODO: error handling;
-     } 
+     } catch (\PDOException $e) {
+      errorHandling::internalError();
+    } 
     }
 
     public static function makeDataBase(string $doctorID){
@@ -229,7 +227,6 @@ class Db{
       }
       //fetch hour from databse
       try {
-        //TODO: consider status to be 1 in the SQL query
         $sql = "SELECT hour FROM d".$doctorID." WHERE year=".$year." and month='".$month."' and day=".$day;
         $stmt = $conn->prepare($sql);
         $stmt->execute();
