@@ -1,25 +1,25 @@
 # API Documentation
 
 ## Introduction
-This API provides endpoints for managing doctor appointments and related functionalities. Below are the details of the available endpoints and their usage.
+This API provides endpoints for managing doctor appointments and related functionalities. Below are the details of the available endpoints and their usage, including specific restrictions and requirements for each endpoint.
 
 ## Doctor Registration
 To register as a doctor, send a POST request to `/OnlineDoctorAppointment/back/SignupDoc/Signup` with the following data in the request body:
 - first
 - last
-- fileNumber
-- phoneNumber
-- city
+- fileNumber (10-digit number)
+- phoneNumber (11-digit number in the format 09**)
+- city (from a predefined list)
 - clinicAddress
-- major
+- major (from a predefined list)
 - expertise
-- email
-- gender
+- email (in email format)
+- gender (male or female)
 
 Note: Ensure that the data is formatted as specified and follows the guidelines mentioned in the API documentation.
 
 ## Set Doctor's Password
-After registering, send the doctor's password to `/OnlineDoctorAppointment/back/SignupDoc/setPass` to complete the account setup.
+After registering, send the doctor's password to `/OnlineDoctorAppointment/back/SignupDoc/setPass` to complete the account setup. The password should contain both characters and numbers and be at least 8 characters long.
 
 ## Doctor Login Using JWT
 For JWT-based login, send a POST request to `/OnlineDoctorAppointment/back/loginDoc/loginJwt` with the client's cookies. If the JWT is valid, the API will return a true JSON response.
@@ -58,4 +58,4 @@ Patients can cancel their reservations by sending a POST request to `/OnlineDoct
 Retrieve a doctor's schedule by sending a POST request to `/OnlineDoctorAppointment/back/onlineReservation/showDocInfo/showDocSchedule` with the doctor's ID in the request body.
 
 ## Conclusion
-This documentation provides an overview of the available endpoints and their usage, including the specific request formats and guidelines for front-end developers. For further details, refer to the API documentation or contact the API provider.
+This documentation provides an overview of the available endpoints and their usage, including the specific restrictions and requirements for each endpoint. For further details, refer to the API documentation or contact the API provider.
