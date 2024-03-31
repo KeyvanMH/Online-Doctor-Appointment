@@ -58,4 +58,4 @@ Patients can cancel their reservations by sending a POST request to `/OnlineDoct
 Retrieve a doctor's schedule by sending a POST request to `/OnlineDoctorAppointment/back/onlineReservation/showDocInfo/showDocSchedule` with the doctor's ID in the request body.
 
 ## Conclusion
-This documentation provides an overview of the available endpoints and their usage, including the specific restrictions and requirements for each endpoint. For further details, refer to the API documentation or contact the API provider.
+This documentation provides an overview of the available endpoints and their usage, including the specific restrictions and requirements for each endpoint. For further details, contact the API provider.
