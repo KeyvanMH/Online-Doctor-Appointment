@@ -31,7 +31,7 @@ To run this PHP API, you will need the following software and dependencies:
 - **PHP Version 8.2:** Ensure that your PHP version is 8.2 or higher to run this API.
 
 ## Database
-This API uses MySQL as the database management system. You need to create two databases with the specified names. Detailed instructions for setting up the databases can be found in the [documentation file](./documentation).
+This API uses MySQL as the database management system. You need to create two databases with the specified names. Detailed instructions for setting up the databases can be found in the [documentation file](./documentation.md).
 
 ## How to Install
 To install the necessary dependencies for this API, follow these steps:
@@ -42,5 +42,5 @@ To install the necessary dependencies for this API, follow these steps:
     ```
 
 ## Documentation
-For comprehensive documentation and usage guidelines, please refer to the [documentation file](./documentation) in the project directory.
+For comprehensive documentation and usage guidelines, please refer to the [documentation file](./documentation.md) in the project directory.
 
