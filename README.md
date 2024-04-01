@@ -1,6 +1,6 @@
-# overview
+# Overview
  ### Online doctor appointment
-Online doctor appointment is a API for reserving online appointment for clinic with lot's of feature's!
+Online doctor appointment is a API for reserving online appointment for medical clinic's with lot's of feature's!
  # Features
 - **Doctors** have their own profiles and dashboards.
 - The API incorporates **JWT**, allowing for a streamlined login process for **doctors** without the need to manually input their information.
